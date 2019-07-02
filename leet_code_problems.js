@@ -135,3 +135,88 @@ var lengthOfLongestSubstring = function (s) {
 // console.log(lengthOfLongestSubstring("pwwkew")); // 3
 // console.log(lengthOfLongestSubstring("abcabcbb")); // 3
 // console.log(lengthOfLongestSubstring("bbbbb")); // 1
+
+
+
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+
+
+
+// 4. MEDIAN OF TWO SORTED ARRAYS
+// There are two sorted arrays nums1 and nums2 of size m and n respectively.
+
+// Find the median of the two sorted arrays.The overall run time complexity 
+// should be O(log(m + n)).
+
+// You may assume nums1 and nums2 cannot be both empty.
+
+// Example 1:
+
+// const nums1 = [1, 3];
+// const nums2 = [2];
+
+// The median is 2.0
+
+// Example 2:
+
+// const nums3 = [1, 2];
+// const nums4 = [3, 4];
+
+// The median is(2 + 3) / 2 = 2.5
+
+// var findMedianSortedArrays = function (nums1, nums2) {
+    
+// };
+
+// console.log(findMedianSortedArrays(nums1, nums2));
+// console.log(findMedianSortedArrays(nums3, nums4));
+
+
+
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+
+
+
+// 7. REVERSE INTEGER
+// Given a 32 - bit signed integer, reverse digits of an integer.
+
+// Example 1:
+// Input: 123
+// Output: 321
+
+// Example 2:
+// Input: -123
+// Output: -321
+
+// Example 3:
+// Input: 120
+// Output: 21
+
+// Note:
+// Assume we are dealing with an environment which could only store integers 
+// within the 32 - bit signed integer range: [−231, 231 − 1].For the purpose of 
+// this problem, assume that your function returns 0 when the reversed integer 
+// overflows.
+
+var reverse = function (x) {
+    let num;
+
+    if (x < 0) {
+        num = Math.abs(x).toString().split("").reverse().join("");
+        num = -parseInt(num);
+    } else {
+        num = x.toString().split("").reverse().join("");
+        num = parseInt(num);
+    }
+
+    if (Math.pow(2, 31) - 1 < num) return 0;
+    if (Math.pow(-2, 31) > num) return 0;
+    return num;
+};
+
+// console.log(reverse(123)); // 321
+// console.log(reverse(-123)); // -321
+// console.log(reverse(120)); // 21
+// console.log(reverse(1534236469)); // 0
