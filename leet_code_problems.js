@@ -59,7 +59,6 @@ var addTwoNumbers = function (l1, l2) {
 
 // console.log(addTwoNumbers(a, d));
 
-// 29 zeros
 // let a = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
 // let b = [5, 6, 4];
 
@@ -114,25 +113,25 @@ const linkedListCreator = (arr) => {
 // Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
 var lengthOfLongestSubstring = function (s) {
-    let longestSub = "";
-    let currentSub = "";
+    let longestSubCount = 0;
+    let set = new Set();
+    let i = 0;
+    let j = 0;
 
-    let prevIdx = 0;
-    let currIdx = 0;
-    while (currIdx < s.length) {
-        currentSub = s.slice(prevIdx, currIdx);
-        if (currentSub.includes(s[currIdx])) {
-            if (currentSub.length > longestSub.length) longestSub = currentSub;
-            s = s.slice(currIdx + 1);
-            prevIdx = 0;
-            currentSub = "";
+    while (i < s.length && j < s.length) {
+        if (!set.has(s[j])) {
+            set.add(s[j]);
+            j++;
+            longestSubCount = Math.max(longestSubCount, j - i);
         } else {
-            longestSub = currentSub;
+            set.delete(s[i]);
+            i++;
         }
-        currIdx += 1;
     }
 
-    return longestSub.length;
+    return longestSubCount;
 };
 
-console.log(lengthOfLongestSubstring("bbbbb"));
+// console.log(lengthOfLongestSubstring("pwwkew")); // 3
+// console.log(lengthOfLongestSubstring("abcabcbb")); // 3
+// console.log(lengthOfLongestSubstring("bbbbb")); // 1
