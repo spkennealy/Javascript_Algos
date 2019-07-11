@@ -412,8 +412,64 @@ var romanToInt = function (s) {
 // All given inputs are in lowercase letters a - z.
 
 var longestCommonPrefix = function (strs) {
+    let longestPre = "";
+    let firstWord = strs.shift();
 
+    for (let i = firstWord.length; i > 0; i--) {
+        if (checkPre(strs, firstWord.slice(0, i))) {
+            longestPre = firstWord.slice(0, i);
+            break;
+        }
+    }
+
+    return longestPre;
 };
 
-console.log(longestCommonPrefix(["flower", "flow", "flight"])); // "fl"
-console.log(longestCommonPrefix(["dog", "racecar", "car"])); // ""
+// TODO: ANY STRING CAN SHARE A PREFIX
+
+const checkPre = (strings, pre) => {
+    for (let i = 0; i < strings.length; i++) {
+        if (!strings[i].includes(pre)) return false;
+    }
+    return true;
+};
+
+// console.log(longestCommonPrefix(["flower", "flow", "flight"])); // "fl"
+// console.log(longestCommonPrefix(["dog", "racecar", "car"])); // ""
+// console.log(longestCommonPrefix(["great", "greg", "grow"])); // "gr"
+// console.log(longestCommonPrefix(["strings", "string", "stringy", "stringly"])); // "gr"
+
+
+var findMedianSortedArrays = function (nums1, nums2) {
+    let searchArr = (nums1.length <= nums2.length) ? nums1 : nums2;
+    let xSize = nums1.length;
+    let ySize = nums2.length;
+
+    let start = 0;
+    let end = searchArr.length;
+
+    while (start <= end) {
+        let partitionX = (start + end) / 2;
+        let partitionY = ((xSize + ySize + 1) / 2) - partitionX;
+
+        let maxLeftX = (partitionX == 0) ? -Infinity : nums1[partitionX - 1];
+        let minRightX = (partitionX == xSize) ? Infinity : nums1[partitionX];
+
+        let maxLeftY = (partitionY == 0) ? -Infinity : nums2[partitionY - 1];
+        let minRightY = (partitionY == ySize) ? Infinity : nums2[partitionY];
+
+        if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
+            if ((xSize + ySize) % 2 == 0) {
+                return (Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY)) / 2;
+            } else {
+                return Math.max(maxLeftX, maxLeftY);
+            }
+        } else if (maxLeftX > minRightY) {
+            start = partitionX - 1;
+        } else {
+            end = partitionX + 1;
+        }
+    }
+};
+
+console.log(findMedianSortedArrays([1, 3], [2]));
